@@ -1,6 +1,6 @@
 import {Router} from "express";
 import { addExpense, deleteExpense, getExpenses, calcualteExpense } from "../controllers/expenseController.js";
-import {readLimit, writeLimit} from "./middlewares/rateLimiter.js";
+import {readLimit, writeLimit} from "../middlewares/rateLimiter.js";
 
 const router = Router();
 

@@ -99,7 +99,7 @@ export const removeExpense = async (id) => {
     return true;
 };
 
-export const calculateTotals = async (category) => {
+export const totalExpense = async (category) => {
     // O(1) lookup
     if (category) {
         category = category.toLowerCase();
