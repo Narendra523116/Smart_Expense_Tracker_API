@@ -1,0 +1,22 @@
+{
+  "name": "smart_expense_tracker_api",
+  "version": "1.0.0",
+  "description": "rest api's for smart expense tracking",
+  "license": "ISC",
+  "author": "venkata narendra",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "expressjs": "^1.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
