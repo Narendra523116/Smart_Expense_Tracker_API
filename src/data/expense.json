@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": 1,
+    "title": "belt",
+    "amount": 3000,
+    "category": "dailywear",
+    "date": "2026-07-31"
+  }
+]
