@@ -82,6 +82,8 @@ Request body:
 ```
 `date` is optional and defaults to today's date. `category` is stored lowercase for consistent lookups.
 
+> **Note:** Do not include an `id` field in the request — it's always generated server-side with `crypto.randomUUID()` and returned in the response.
+
 Response (`201`):
 ```json
 {
@@ -157,7 +159,7 @@ Smart_Expense_Tracker_API/
 
 - **Storage:** Expenses live in memory (`Map`), not on disk, so data resets on server restart.
 - **Category index:** A secondary `Map` keyed by category is maintained alongside the main store so category filtering and category totals stay O(1) instead of scanning the full expense list.
-- **IDs:** Expense IDs are server-generated with `crypto.randomUUID()` — clients cannot supply their own ID to ensure uniquness in the ID for deletion
+- **IDs:** Expense IDs are server-generated with `crypto.randomUUID()` — clients cannot supply their own ID to ensure uniqueness in the ID for deletion
 
 ## Known Limitations
 
