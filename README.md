@@ -1,6 +1,6 @@
 # Smart Expense Tracker API
 
-A lightweight REST API for tracking personal expenses — add, list, delete, and total expenses by category. Built with Node.js, Express, and an in-memory `Map`-based storage engine (no database dependency required for this project scope).
+A lightweight REST API for tracking personal expenses - add, list, delete, and total expenses by category. Built with Node.js, Express, and an in-memory `Map`-based storage engine (no database dependency required for this project scope).
 
 ## Tech Stack
 
@@ -82,7 +82,7 @@ Request body:
 ```
 `date` is optional and defaults to today's date. `category` is stored lowercase for consistent lookups.
 
-> **Note:** Do not include an `id` field in the request — it's always generated server-side with `crypto.randomUUID()` and returned in the response.
+> **Note:** Do not include an `id` field in the request, it's always generated server-side with `crypto.randomUUID()` and returned in the response.
 
 Response (`201`):
 ```json
@@ -159,11 +159,11 @@ Smart_Expense_Tracker_API/
 
 - **Storage:** Expenses live in memory (`Map`), not on disk, so data resets on server restart.
 - **Category index:** A secondary `Map` keyed by category is maintained alongside the main store so category filtering and category totals stay O(1) instead of scanning the full expense list.
-- **IDs:** Expense IDs are server-generated with `crypto.randomUUID()` — clients cannot supply their own ID to ensure uniqueness in the ID for deletion
+- **IDs:** Expense IDs are server-generated with `crypto.randomUUID()`,  clients cannot supply their own ID to ensure uniqueness in the ID for deletion
 
 ## Known Limitations
 
 - Data does not persist across server restarts (in-memory only, by design for this project).
-- No authentication/authorization layer — all endpoints are open.
+- No authentication/authorization layer, all endpoints are open.
 
 ---
