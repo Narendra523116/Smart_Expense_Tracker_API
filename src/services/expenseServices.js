@@ -30,10 +30,10 @@ export const createExpense = async ({ title, amount, category, date }) => {
     if (!categoryIndex.has(category)) {
         categoryIndex.set(category, new Map());
     }
-    categoryIndex.get(normalizedCategory).set(id, newExpense);
+    categoryIndex.get(category).set(id, newExpense);
 
     // updating totals
-    overallTotal += numericAmount;
+    overallTotal += amount;
     categoryTotals[category] = (categoryTotals[category] || 0) + amount;
 
     return newExpense;

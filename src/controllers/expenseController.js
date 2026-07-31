@@ -17,13 +17,13 @@ export const addExpense = async (req, res) => {
         }
 
         const newExpense = await createExpense({title, amount, category, date});
-        res.status(200).json({
+        res.status(201).json({
             message: 'Expense succesfully added',
             data: newExpense
         })
 
     }catch(error){
-        console.log(error)
+        // console.log(error)
         res.status(500).json({
             message: 'Error occured while adding expense'
         })
@@ -54,7 +54,7 @@ export const deleteExpense = async(req, res) => {
                 message: "Deletion succesful"
             })
         }else{
-            res.status(200).json({
+            res.status(404).json({
                 message: `No expense with id ${id} to delete`
             })
         }
@@ -67,7 +67,7 @@ export const deleteExpense = async(req, res) => {
 }
 
 export const calcualteExpense = async (req, res) => {
-    console.log(req.query);
+    // console.log(req.query);
     try{
         const {category} = req.query;
         return res.status(200)
