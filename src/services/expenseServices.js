@@ -36,3 +36,29 @@ export const removeExpense = async (id) => {
     await writeExpense(expenses);
     return true;
 }
+
+export const totalExpense = async (category) => {
+    const expenses = await readExpense();
+    if(category){
+        category = category.toLowerCase();
+        const filtered = expenses.filter(exp => exp.category === category);
+        const total = expenses.reduce((sum, exp) => sum + exp.amount, 0);
+
+        return { category, total, count: filtered.length};
+    }
+
+    const overallTotal = expenses.reduce((sum, exp) => sum + exp.amount, 0);
+  
+    // category breakdown
+    const byCategory = expenses.reduce((acc, exp) => {
+        acc[exp.category] = (acc[exp.category] || 0) + exp.amount;
+        return acc;
+    }, {});
+
+    return {
+        overallTotal,
+        totalCount: expenses.length,
+        byCategory
+    };
+
+}

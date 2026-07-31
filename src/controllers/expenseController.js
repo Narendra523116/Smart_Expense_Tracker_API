@@ -1,4 +1,4 @@
-import { createExpense, getAllExpenses, removeExpense } from "../services/expenseServices.js";
+import { createExpense, getAllExpenses, removeExpense, totalExpense } from "../services/expenseServices.js";
 
 export const addExpense = async (req, res) => {
     try{
@@ -62,6 +62,20 @@ export const deleteExpense = async(req, res) => {
     catch(error){
         res.status(500).json({
             error: "Deletion failed"
+        })
+    }
+}
+
+export const calcualteExpense = async (req, res) => {
+    console.log(req.query);
+    try{
+        const {category} = req.query;
+        return res.status(200)
+                    .json({data: await totalExpense(category)})
+        
+    }catch(error){
+        res.status(500).json({
+            error: "failed to calculate the expenses"
         })
     }
 }

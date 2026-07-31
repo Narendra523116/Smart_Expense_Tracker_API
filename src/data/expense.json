@@ -5,5 +5,12 @@
     "amount": 3000,
     "category": "dailywear",
     "date": "2026-07-31"
+  },
+  {
+    "id": 2,
+    "title": "shirt",
+    "amount": 3000,
+    "category": "lifestyle",
+    "date": "2026-07-31"
   }
 ]
