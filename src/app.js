@@ -3,6 +3,7 @@ import cors from "cors";
 import expenseRoutes from "./routes/expenseRoutes.js";
 import e from "express";
 
+
 const app = express();
 
 app.use(cors());

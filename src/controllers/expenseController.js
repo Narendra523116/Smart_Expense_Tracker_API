@@ -3,8 +3,8 @@ import { createExpense, getAllExpenses, removeExpense, totalExpense } from "../s
 export const addExpense = async (req, res) => {
     try{
         // console.log(req);
-        const {id, title, amount, category, date} = req.body;
-        if(!id || !title || !amount || !category){
+        const {title, amount, category, date} = req.body;
+        if(!title || !amount || !category){
             return res.status(400).json({
                 error: 'id, title, amount and category are necessary'
             })
@@ -16,7 +16,7 @@ export const addExpense = async (req, res) => {
             })
         }
 
-        const newExpense = await createExpense({id, title, amount, category, date});
+        const newExpense = await createExpense({title, amount, category, date});
         res.status(200).json({
             message: 'Expense succesfully added',
             data: newExpense
