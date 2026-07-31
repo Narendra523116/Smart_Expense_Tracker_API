@@ -39,7 +39,7 @@ export const getExpenses = async (req, res) => {
             data: expenses
         })
     }catch(error){
-        return res.send(500).json({
+        return res.status(500).json({
             error: "Error while fetching expenses"
         })
     }
