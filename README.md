@@ -62,7 +62,7 @@ This runs the Jest + Supertest integration suite (`tests/expense.test.js`) again
  
 Base path: `/api/expenses`
  
-Every route that accepts an optional query parameter is listed as two separate rows below — once for the bare route, once for the filtered variant — since they return meaningfully different response shapes.
+Every route that accepts an optional query parameter is listed as two separate rows below - once for the bare route, once for the filtered variant - since they return meaningfully different response shapes.
  
 | Method | Endpoint                                   | Description                                              | Rate limit            |
 |--------|----------------------------------------------|------------------------------------------------------------|-------------------------|
@@ -90,7 +90,7 @@ Request body:
 ```
 `date` is optional and defaults to today's date. `category` is stored lowercase for consistent lookups.
  
-> **Note:** Do not include an `id` field in the request — it's always generated server-side with `crypto.randomUUID()` and returned in the response.
+> **Note:** Do not include an `id` field in the request - it's always generated server-side with `crypto.randomUUID()` and returned in the response.
  
 Response (`201`):
 ```json
@@ -186,7 +186,7 @@ Response (`200`):
  
 Same endpoint, scoped to a single month via the `month` query parameter (e.g. `?month=2026-07`).
  
-- `month` must match `YYYY-MM` — anything else returns `400`.
+- `month` must match `YYYY-MM` - anything else returns `400`.
 - A validly formatted month with no expenses returns a zeroed-out summary, not an error.
 Response (`200`), month with data:
 ```json
@@ -215,8 +215,8 @@ Response (`400`), badly formatted month:
  
 Deletes the expense with the given `id`.
  
-- `200` — `{ "message": "Deletion succesful" }`
-- `404` — `{ "message": "No expense with id <id> to delete" }` if the ID doesn't exist (including if it was already deleted)
+- `200` - `{ "message": "Deletion succesful" }`
+- `404` - `{ "message": "No expense with id <id> to delete" }` if the ID doesn't exist (including if it was already deleted)
 
 ## Project Structure
 
