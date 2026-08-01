@@ -1,4 +1,4 @@
-import { createExpense, getAllExpenses, removeExpense, totalExpense } from "../services/expenseServices.js";
+import { createExpense, getAllExpenses, getMonthlySummary, removeExpense, totalExpense } from "../services/expenseServices.js";
 
 export const addExpense = async (req, res) => {
     try{
@@ -60,6 +60,7 @@ export const deleteExpense = async(req, res) => {
         }
     }
     catch(error){
+        // console.log(error)
         res.status(500).json({
             error: "Deletion failed"
         })
@@ -76,6 +77,30 @@ export const calcualteExpense = async (req, res) => {
     }catch(error){
         res.status(500).json({
             error: "failed to calculate the expenses"
+        })
+    }
+}
+
+export const monthlySummary = async(req, res) => {
+    try{
+        const {month} = req.query;
+        if(month && !/^\d{4}-(0[1-9]|1[0-2])$/.test(month)){
+            return res.status(400).json({
+                error: "month must be in YYYY-MM formmat eg, 2026-08"
+            })
+        }
+
+        const reports = await getMonthlySummary(month);
+        return res.status(200).json({
+            message: month? `summary for ${month}` : `here is all the records we have on order`,
+            data: reports
+        })
+
+
+    }catch(error){
+        // console.log(error)
+        return res.status(500).json({
+            error: "failed to build monthly summary"
         })
     }
 }

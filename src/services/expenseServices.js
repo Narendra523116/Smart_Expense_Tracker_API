@@ -9,18 +9,22 @@ const categoryIndex = new Map();
 // incrementing totals by the time of addition and deletion so lookups of getting overall expense becomes O(1)
 let overallTotal = 0;
 const categoryTotals = {};
+const monthTotals = {}
+
+const getMonth = (date) => date.slice(0,7);
 
 
 export const createExpense = async ({ title, amount, category, date }) => {
     category = category.toLowerCase();
     amount = Number(amount);
     const id = crypto.randomUUID();
+    date = date || new Date().toISOString().split('T')[0]
     const newExpense = {
         id,
         title,
         amount,
         category,
-        date: date || new Date().toISOString().split('T')[0]
+        date
     };
 
     //storing in main map i.e all expense
@@ -32,9 +36,24 @@ export const createExpense = async ({ title, amount, category, date }) => {
     }
     categoryIndex.get(category).set(id, newExpense);
 
+    const monthStr = getMonth(date);
+
+
     // updating totals
     overallTotal += amount;
     categoryTotals[category] = (categoryTotals[category] || 0) + amount;
+    if(!monthTotals[monthStr]){
+        monthTotals[monthStr]  = {
+            total: 0,
+            count: 0, 
+            byCategory: {}
+        }
+    }
+
+    monthTotals[monthStr].total += amount;
+    monthTotals[monthStr].count += 1;
+    monthTotals[monthStr].byCategory[category] =
+        (monthTotals[monthStr].byCategory[category] || 0) + amount;
 
     return newExpense;
 };
@@ -87,13 +106,33 @@ export const removeExpense = async (id) => {
         }
     }
 
+    //removing from monthlyIndex
+    const dateStr = expense.date.slice(0,7);
+    const category = expense.category;
+
+
     // updating totals
     overallTotal -= expense.amount;
+
+    // updating category totals
     if (categoryTotals[expense.category]) {
         categoryTotals[expense.category] -= expense.amount;
         if (categoryTotals[expense.category] <= 0) {
         delete categoryTotals[expense.category];
         }
+    }
+
+    //updating monthly totals
+    if(monthTotals[dateStr]){
+        monthTotals[dateStr].total -= expense.amount;
+        monthTotals[dateStr].count -= 1;
+        if (monthTotals[dateStr].byCategory[expense.category]) {
+            monthTotals[dateStr].byCategory[expense.category] -= expense.amount;
+            if (monthTotals[dateStr].byCategory[expense.category] <= 0) {
+                delete monthTotals[dateStr].byCategory[expense.category];
+            }
+        }
+        if(monthTotals[dateStr].count <= 0) delete monthTotals[dateStr];
     }
 
     return true;
@@ -116,4 +155,22 @@ export const totalExpense = async (category) => {
         totalCount: expensesMap.size,
         byCategory: { ...categoryTotals }
     };
+};
+
+export const getMonthlySummary = async (month) => {
+    // O(1) lookup for a single month "2026-07"
+    if (month) {
+        const summary = monthTotals[month] || { total: 0, count: 0, byCategory: {} };
+        return {
+            month,
+            ...summary
+        };
+    }
+ 
+    // no month specified -> return every month we have data for, oldest first
+    const months = Object.keys(monthTotals).sort();
+    return months.map((m) => ({
+        month: m,
+        ...monthTotals[m]
+    }));
 };
